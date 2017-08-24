@@ -10,16 +10,17 @@ import cv2
 
 
 # Get a reference to webcam #0 (the default one)
-video_capture = cv2.VideoCapture(0)
+video_capture = cv2.VideoCapture('./byb/bybvideo1.mp4')
 
 # Load a sample picture and learn how to recognize it.
-obama_image = face_recognition.load_image_file("obama.jpg")
+obama_image = face_recognition.load_image_file("./byb/byb1.jpg")
 obama_face_encoding = face_recognition.face_encodings(obama_image)[0]
 
 while True:
     # Grab a single frame of video
     ret, frame = video_capture.read()
-
+    # frame = cv2.imread('notobama.jpg')
+    # frame = cv2.imread('./wangluodan2.jpg')
     # Find all the faces and face enqcodings in the frame of video
     face_locations = face_recognition.face_locations(frame)
     face_encodings = face_recognition.face_encodings(frame, face_locations)
@@ -32,11 +33,14 @@ while True:
         name = "Unknown"
         if match[0]:
             name = "Boss"
+            print("Obama is comming")
+        else :
+            print("It's safe")
 
         # Draw a box around the face
         cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
 
-        # Draw a label with a name below the face
+        # Draw a label with a namqe below the face
         cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
         font = cv2.FONT_HERSHEY_DUPLEX
         cv2.putText(frame, name, (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
